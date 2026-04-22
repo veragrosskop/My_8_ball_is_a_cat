@@ -65,7 +65,7 @@
 <h1>Welcome!</h1>
 <p class="description">Ever in need of a mystical prophecy?<br/>Want to know if you'll pass your exams or find your true
     love?<br/>This 8 ball has all the answers! Just ask your question below:</p>
-<img src="/src/images/cat_8ball.png" alt="8 ball">
+<img src="{{ url_for('static', filename='images/cat_8ball.png') }}" alt="8 ball">
 <form action="/" method="post">
     <label for="question">Your question:</label><br>
     <input type="text" id="question" name="question" required>
@@ -74,7 +74,7 @@
 
 <div id="answerBox">
     <h2>The Almighty 8 ball Answers:</h2>
-    <p id="answer">Add answer here....</p>
+    <p id="answer">{{ answer }}</p>
 </div>
 </body>
 </html>
