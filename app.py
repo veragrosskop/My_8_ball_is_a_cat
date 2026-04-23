@@ -1,17 +1,10 @@
 from flask import Flask, render_template, request
-from openai import OpenAI
-from dotenv import load_dotenv
-import os
 from cat import Cat
+from client import GenAIClient
 
 # INITIALIZE APP
 # ------------------
-load_dotenv()  # loads .env into environment
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-if not OPENAI_API_KEY:
-    raise ValueError("No API key found. Set OPENAI_API_KEY in .env")
-
-client = OpenAI(api_key=OPENAI_API_KEY)
+CLIENT = GenAIClient()
 
 app = Flask(__name__)
 
@@ -28,12 +21,9 @@ def ask_oracle(question, mood_prompt) -> str:
     :param mood_prompt: The mood prompt for the cat. For example answer as if you're a hungry cat.
     :return: The answer as a string as answered by a cat.
     """
-    response = client.responses.create(
-        model="gpt-5.4",
-        instructions=f"Talk like a cat. {mood_prompt}",
-        input=question
-    )
-    return response.output_text
+
+    response = CLIENT.get_response(question, mood_prompt)
+    return response
 
 
 # Routes
