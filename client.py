@@ -110,7 +110,7 @@ class GenAIClient(Client):
         response = self.client.models.generate_content(
             model=self.model,
             config=types.GenerateContentConfig(
-                system_instruction=instruction),
+                system_instruction=f"{instruction} Keep it short."),
             contents=prompt
         )
 
@@ -161,7 +161,7 @@ class OpenAIClient(Client):
 
         response = self.client.responses.create(
             model=self.model,
-            instructions=instruction,
+            instructions=f"{instruction} Keep it short.",
             input=prompt
         )
 
