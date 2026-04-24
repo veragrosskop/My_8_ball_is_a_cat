@@ -75,6 +75,20 @@ cd My-8-ball-is-a-cat
 ```bash
 pip install -r requirements.txt
 ```
+### 2. Set up you AI connection
+in app.py replace the CLIENT initialization, with the correct class using either of the initializations below:
+```python
+CLIENT = GenAIClient() #defaults to standard Gemini for development see client.py
+```
+or:
+```python
+CLIENT = OpenAIClient() #defaults to standard Gemini for development see client.py
+```
+Add your API Key(s) in a .env file
+```
+GENAI_API_KEY=YourAPIKEY
+OPENAI_API_KEY=YourAPIKEY
+```
 ### 3. Run the app
 ```bash
 python app.py
