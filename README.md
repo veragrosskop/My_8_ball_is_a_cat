@@ -5,7 +5,7 @@ _**What if your 8 ball … was a cat?**_
 
 
 >🎱 **My 8 ball is a cat!** is a playful web application built with Flask and OpenAI’s API that responds to user questions with the personality of a cat. Why? 'Cause it's a cat?
-
+![img.png](img.png)
 ---
 
 ## ✨ Features

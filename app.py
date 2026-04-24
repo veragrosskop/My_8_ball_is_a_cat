@@ -13,8 +13,6 @@ CAT = Cat()
 
 # Helper Functions
 #-------------------
-
-
 def ask_oracle(question) -> str:
     """
     Passes a question to openai.com and returns the answer as if it is a cat.

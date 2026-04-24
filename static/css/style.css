@@ -1,10 +1,17 @@
+:root {
+    --bg: #17002E;
+    --accent: #BD7BFF;
+    --screen_color: #004CFF;
+}
+
+
 body, input {
     font-family: 'Press Start 2P', monospace;
     image-rendering: pixelated;
 }
 body {
     padding: 20px;
-    background-color: #17002E;
+    background-color: var(--bg);
     text-align: center;
     color: #BD7BFF;
 }
@@ -14,12 +21,9 @@ body {
     margin-bottom: 20px;
 }
 form {
-    background-color: #000000;
     padding: 20px;
     width: 60%;
-    margin: 0 auto;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
+    margin: 0px auto;
 }
 input[type=text] {
     width: 70%;
@@ -40,6 +44,24 @@ input[type=submit] {
     width: 28%;
     float: right;
 }
+button {
+    font-family: 'Press Start 2P', monospace;
+    background-color: var(--accent);
+    color: #000;
+    border: 3px solid #000;
+    padding: 10px 20px;
+    cursor: pointer;
+
+    box-shadow: 3px 3px 0px #000;
+    transition: all 0.1s ease;
+}
+
+button:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px 0px #000;
+}
+
+
 img {
     max-width: 100%;
     height: 400px;
@@ -47,7 +69,7 @@ img {
     margin: 20px auto;
 }
 h1 {
-    color: #c44569;
+    color: var(--accent);
     font-size: 24px;
     text-shadow: 2px 2px #000;
 }
@@ -63,18 +85,14 @@ h1 {
 
 .middle-row {
     display: flex;
+    margin-top: 70px;
     justify-content: space-between;
     align-items: flex-end;
     gap: 20px;
 }
 
 .panel {
-    background: #000;
     padding: 15px;
-
-    border: 4px solid #000;
-    box-shadow: 4px 4px 0px #000;
-
     min-height: 200px;
 }
 
@@ -151,6 +169,7 @@ h1 {
 
     background: black;
     border-radius: 50%;
+    box-shadow: inset 0 0 30px 2px #A594FF;
 
     z-index: 1;
 
@@ -164,8 +183,8 @@ h1 {
     height: 0;
     border-left: 50px solid transparent;
     border-right: 50px solid transparent;
-    border-top: 80px solid #004CFF; /* blue */
-    filter: drop-shadow(0 0 10px #004CFF);
+    border-top: 80px solid var(--screen_color);
+    filter: drop-shadow(0 0 10px var(--screen_color));
     animation: flicker 1.5s infinite;
 
     position: relative;
@@ -205,16 +224,16 @@ h1 {
 
 .speech-bubble {
     position: relative;
-    background: #1f2a44;
+    background: var(--screen_color);
     color: white;
     padding: 15px;
 
     border: 4px solid #000;
     box-shadow: 4px 4px 0px #000;
-
+    font-size: 8px;
     text-align: left;
 
-    animation: talk 3s ease-in-out infinite;
+    animation: pulse 2s infinite alternate ease-in-out, flicker 1.5s infinite;
 }
 /* speech bubble pointer to cat */
 .speech-bubble::after {
@@ -229,7 +248,8 @@ h1 {
 
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
-    border-right: 20px solid #1f2a44;
+    border-right: 20px solid var(--screen_color);
+    animation: pulse 2s infinite alternate ease-in-out, flicker 1.5s infinite;
 }
 
 .bottom-row {
