@@ -23,10 +23,10 @@ class Cat:
     last_update = None
 
     def __init__(self,):
-        self.hunger = 2
-        self.social_fatigue = 5
-        self.loneliness = 0
-        self.sleepy = 0
+        self.hunger = 50
+        self.social_fatigue = 20
+        self.loneliness = 60
+        self.sleepy = 30
         self.update_mood()
 
     def clamp(self):
@@ -48,18 +48,51 @@ class Cat:
         :return:
         """
         mood_prompt = ""
-        if self.hunger < 5:
+        if Mood.best  in self.mood:
+            mood_prompt += "The cat is super happy and in a great mood."
+        if Mood.normal  in self.mood:
+            mood_prompt += "The cat is in a normal mood. Not too happy and not too cranky either."
+        if Mood.worst  in self.mood:
+            mood_prompt += "Answer as if the cat is in the worst possible mood."
+        if Mood.hungry  in self.mood:
             mood_prompt += "Answer as if the cat is super hungry and only thinks about food."
-        if self.hunger >5:
-            mood_prompt += "Answer as if the cat just ate and would like to digest the meal a bit."
+        if Mood.tired  in self.mood:
+            mood_prompt += "Answer as if the cat is super sleepy and wants to take a nap."
+        if Mood.antisocial  in self.mood:
+            mood_prompt += ("The cat wants some me-time. Prefers not to be pet. "
+                            "Will answer, but warns about some alone time.")
+        if Mood.lonely  in self.mood:
+            mood_prompt += "The cat is feeling very lonely and needs affection."
+
         return mood_prompt
+
+    def handle_ask(self):
+        """
+        Handles an ask event. Increases the hunger and sleepy and social fatigue counters.
+        """
+        self.loneliness -= 20
+        self.hunger += 20
+        self.social_fatigue += 10
+        self.sleepy += 10
+        self.clamp()
+        self.update_mood()
+
+    def handle_nap(self):
+        """
+        Handles an ask event. Increases the hunger and sleepy and social fatigue counters.
+        """
+        self.sleepy -= 40
+        self.social_fatigue -= 40
+        self.clamp()
+        self.update_mood()
+
 
     def handle_pet(self):
         """
         Handles a pet event. Increases the loved feeling and reduces the social battery.
         """
-        self.loneliness -= 2
-        self.social_fatigue += 1
+        self.loneliness -= 20
+        self.social_fatigue += 10
         self.clamp()
         self.update_mood()
 
@@ -69,7 +102,7 @@ class Cat:
         Decreases the hunger.
         """
 
-        self.hunger -= 1
+        self.hunger -= 10
         self.clamp()
         self.update_mood()
 
@@ -79,17 +112,17 @@ class Cat:
 
         """
         self.mood = []
-        if self.hunger > 5:
+        if self.hunger > 50:
             self.mood.append(Mood.hungry)
-        if self.social_fatigue <= 3:
+        if self.social_fatigue >= 70:
             self.mood.append(Mood.antisocial)
-        if self.loneliness <= 5:
+        if self.loneliness >= 70:
             self.mood.append(Mood.lonely)
-        if self.sleepy <= 3:
+        if self.sleepy >= 70:
             self.mood.append(Mood.tired)
-        if all(mood < 3 for mood in(self.hunger, self.sleepy, self.loneliness, self.social_fatigue)):
+        if all(mood < 30 for mood in(self.hunger, self.sleepy, self.loneliness, self.social_fatigue)):
             self.mood.append(Mood.best)
-        if all(mood > 8 for mood in (self.hunger, self.sleepy, self.loneliness, self.social_fatigue)):
+        if all(mood > 80 for mood in (self.hunger, self.sleepy, self.loneliness, self.social_fatigue)):
             self.mood.append(Mood.worst)
         if not self.mood:
             self.mood.append(Mood.normal)

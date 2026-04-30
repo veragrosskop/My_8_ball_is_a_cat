@@ -106,14 +106,12 @@ class GenAIClient(Client):
         :param instruction:
         :return:
         """
-
         response = self.client.models.generate_content(
             model=self.model,
             config=types.GenerateContentConfig(
                 system_instruction=f"{instruction} Keep it short."),
             contents=prompt
         )
-
         return response.text
 
 class OpenAIClient(Client):

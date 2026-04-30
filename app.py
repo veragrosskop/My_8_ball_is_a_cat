@@ -26,45 +26,49 @@ def ask_oracle(question) -> str:
     try:
         response = CLIENT.get_response(question, instructions)
     except Exception as e:
-        response = f"{e}"
+
+        error_msg = f"{e}"
+
+        if "429" in error_msg or "RESOURCE_EXHAUSTED" in error_msg:
+            response = "⚠️ You've reached your oracle question limit. Try again later."
+
+        else:
+            response =  "⚠️ The oracle is confused... something went wrong."
     print(response)
     return response
-
-#
-# def background_loop(flask_app):
-#     with flask_app.app_context():
-#         while True:
-#             CAT.update()  # your global pet
-#             time.sleep(5)
-#
-# def start_background_thread(flask_app):
-#     thread = threading.Thread(target=background_loop, args=(flask_app,), daemon=True)
-#     thread.start()
 
 # Routes
 # ------------------
 @app.route("/", methods=['GET'])
 def oracle_homepage():
-    return render_template('index.html', message="Ask me anything...")
+    return render_template('index.html', state=CAT.get_dict_state(), message="Ask me anything...")
 
 @app.route("/", methods=['POST'])
 def oracle_action():
     answer = ""
     action = request.form.get("action")
-    print("Form data:", request.form)  # what does this show?
-    #TODO! fix stats view
+
     if action == "ask":
         question = request.form.get("question")
+        CAT.handle_ask()
         print(question)
         answer = ask_oracle(question)
+        print(CAT.get_dict_state())
         return jsonify({"message": answer, "state": CAT.get_dict_state()})
     elif action == "feed":
         CAT.handle_feed()
         answer = "🐟 The cat has been fed!"
+        print(CAT.get_dict_state())
+        return jsonify({"message": answer, "state": CAT.get_dict_state()})
+    elif action == "nap":
+        CAT.handle_nap()
+        answer = "ZZZZZzzzzz..."
+        print(CAT.get_dict_state())
         return jsonify({"message": answer, "state": CAT.get_dict_state()})
     elif action == "pet":
         CAT.handle_pet()
         answer = "😸 Purr... the cat is happy!"
+        print(CAT.get_dict_state())
         return jsonify({"message": answer, "state": CAT.get_dict_state()})
 
     return jsonify({"message": answer, "state": CAT.get_dict_state()})
@@ -74,7 +78,4 @@ def status():
     return jsonify(CAT.get_dict_state())
 
 if __name__ == '__main__':
-    # if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
-    #     start_background_thread(app)
-
     app.run(host="0.0.0.0", port=5002, debug=False)

@@ -1,7 +1,9 @@
 :root {
     --bg: #17002E;
     --accent: #BD7BFF;
+    --accent-pink: #da36ff;
     --screen_color: #004CFF;
+    --accent-desaturated: #5f5561;
 }
 
 
@@ -10,21 +12,35 @@ body, input {
     image-rendering: pixelated;
 }
 body {
-    padding: 20px;
+    padding: 10px;
     background-color: var(--bg);
     text-align: center;
-    color: #BD7BFF;
+    color: white;
 }
+
+h1 {
+    color: var(--accent-pink);
+    font-size: 24px;
+    text-shadow: 2px 2px #000;
+}
+
 .description {
     font-size: 0.6em;
-    color: #8200DB;
+    color: var(--accent);
     margin-bottom: 20px;
 }
-form {
+
+p {
+    color: var(--accent);
+    font-size: 12px;
+}
+
+.input-form {
     padding: 20px;
-    width: 60%;
+    width: 80%;
     margin: 0px auto;
 }
+
 input[type=text] {
     width: 70%;
     padding: 12px 20px;
@@ -34,8 +50,8 @@ input[type=text] {
     border: 1px solid #ccc;
 }
 input[type=submit] {
-    background-color: #6c757d;
-    color: #ffffff;
+    background-color: var(--screen_color);
+    color: white;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
@@ -61,6 +77,20 @@ button:active {
     box-shadow: 0px 0px 0px #000;
 }
 
+button:disabled {
+
+    background-color: var(--accent-desaturated);
+    color: #000;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 3px 3px 0px #000;
+}
+
+button:disabled:active {
+    transform: none;
+    box-shadow: 3px 3px 0px #000;
+}
+
 
 img {
     max-width: 100%;
@@ -68,15 +98,7 @@ img {
     display: block;
     margin: 20px auto;
 }
-h1 {
-    color: var(--accent);
-    font-size: 24px;
-    text-shadow: 2px 2px #000;
-}
-#answerBox {
-    color: #ffffff;
-    margin-top: 30px;
-}
+
 
 .oracle-container {
     width: 90%;
@@ -86,29 +108,65 @@ h1 {
 .middle-row {
     display: flex;
     margin-top: 70px;
-    justify-content: space-between;
-    align-items: flex-end;
+    justify-content: center;
+    align-items: stretch;
     gap: 20px;
+    flex-wrap: nowrap;
 }
 
 .panel {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
     padding: 15px;
     min-height: 200px;
+    min-width: 0;
 }
 
 .stats-panel {
     width: 25%;
+    height: 200px;
     text-align: left;
+    align-items: top;
+}
+.stats-panel form.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    margin-top: 20px;
 }
 
-.cat-panel {
-    width: 30%;
+.stats-panel form.button-group button {
+    flex: 1;
     text-align: center;
 }
 
+.button-group {
+    margin-top: 80px;
+    width: 100%;
+}
+
+.button-group form {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.button-group button {
+    flex: 1;
+    text-align: center;
+}
+
+.cat-panel {
+    flex: 0 0 auto;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
 @keyframes pulse {
-    0% { transform: scale(1); opacity: 0.9; }
-    100% { transform: scale(1.05); opacity: 1; }
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.07); opacity: 1; }
 }
 
 @keyframes floatText {
@@ -220,12 +278,19 @@ h1 {
 
 .speech-panel {
     width: 35%;
+    min-width: 200px;
+
+}
+
+.speech-panel p {
+   color: white;
+
 }
 
 .speech-bubble {
     position: relative;
     background: var(--screen_color);
-    color: white;
+
     padding: 15px;
 
     border: 4px solid #000;
@@ -239,6 +304,7 @@ h1 {
 .speech-bubble::after {
     content: "";
     position: absolute;
+
 
     left: -20px;
     bottom: 20px;
@@ -254,4 +320,38 @@ h1 {
 
 .bottom-row {
     margin-top: 30px;
+}
+
+.progressbar-wrapper {
+	width: 100px;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #000;
+    padding: 1px;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, .2);
+    overflow: hidden
+}
+
+.progress-bar-fill {
+    display: block;
+    height: 12px;
+    width: 0%;
+    background-color: var(--accent-pink);
+    border-radius: 3px;
+
+    transition: width 500ms ease-in-out;
+}
+
+.loading::after {
+    content: "...";
+    animation: dots 1s steps(3, end) infinite;
+}
+
+@keyframes dots {
+    0% { content: "."; }
+    33% { content: ".."; }
+    66% { content: "..."; }
 }
