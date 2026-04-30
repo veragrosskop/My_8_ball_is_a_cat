@@ -11,11 +11,10 @@ _**What if your 8 ball … was a cat?**_
 
 ## ✨ Features
 
-- 🧠 AI-powered responses using OpenAI API  
-- 🐱 Cat-inspired personality (sarcastic, ready for snacks, aloof, chaotic)  
+- 🧠 AI-powered responses using OpenAI / GenAi API  
+- 🐱 Cat personality (sarcastic, ready for snacks, aloof, chaotic)  
 - 💬 Simple web interface for asking questions  
 - 🎭 Customizable tone based on mood. (grumpy cat, hungry cat, etc.)  
-- 🔄 Easily extendable prompt engineering  
 
 ---
 
