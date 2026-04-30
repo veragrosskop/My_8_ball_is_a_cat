@@ -5,7 +5,8 @@ _**What if your 8 ball … was a cat?**_
 
 
 >🎱 **My 8 ball is a cat!** is a playful web application built with Flask and OpenAI’s API that responds to user questions with the personality of a cat. Why? 'Cause it's a cat?
-![img.png](img.png)
+
+![preview_screenshot.png](preview_screenshot.png)
 ---
 
 ## ✨ Features
@@ -19,7 +20,9 @@ _**What if your 8 ball … was a cat?**_
 ---
 
 > ⚠️ **Work in Progress** 🙀 
-> I'm still developing this project. Aiming to finish it end of May 2026 latest. Come back for the full version later! 
+> I'm still developing this project. Aiming to add OpenAI before end of May 2026 latest. 
+> Until then you can use the GenAI version. 
+> Come back for the full version later! 
 ---
 ## 🐱 How It Works
 1. User enters a question in the web interface
@@ -84,11 +87,16 @@ or:
 ```python
 CLIENT = OpenAIClient() #defaults to standard Gemini for development see client.py
 ```
-Add your API Key(s) in a .env file
+
+Don't have an API key yet? Get your free development Gemini API key:<br/>
+https://ai.google.dev/gemini-api/docs/api-key
+
+Once you have an API key add it in the .env file <br/>
 ```
 GENAI_API_KEY=YourAPIKEY
 OPENAI_API_KEY=YourAPIKEY
 ```
+
 ### 3. Run the app
 ```bash
 python app.py

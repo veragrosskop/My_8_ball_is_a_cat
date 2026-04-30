@@ -22,7 +22,6 @@ def ask_oracle(question) -> str:
     """
 
     instructions = CAT.get_mood_instructions()
-    print(instructions)
     try:
         response = CLIENT.get_response(question, instructions)
     except Exception as e:
@@ -34,7 +33,6 @@ def ask_oracle(question) -> str:
 
         else:
             response =  "⚠️ The oracle is confused... something went wrong."
-    print(response)
     return response
 
 # Routes
@@ -51,24 +49,19 @@ def oracle_action():
     if action == "ask":
         question = request.form.get("question")
         CAT.handle_ask()
-        print(question)
         answer = ask_oracle(question)
-        print(CAT.get_dict_state())
         return jsonify({"message": answer, "state": CAT.get_dict_state()})
     elif action == "feed":
         CAT.handle_feed()
         answer = "🐟 The cat has been fed!"
-        print(CAT.get_dict_state())
         return jsonify({"message": answer, "state": CAT.get_dict_state()})
     elif action == "nap":
         CAT.handle_nap()
         answer = "ZZZZZzzzzz..."
-        print(CAT.get_dict_state())
         return jsonify({"message": answer, "state": CAT.get_dict_state()})
     elif action == "pet":
         CAT.handle_pet()
         answer = "😸 Purr... the cat is happy!"
-        print(CAT.get_dict_state())
         return jsonify({"message": answer, "state": CAT.get_dict_state()})
 
     return jsonify({"message": answer, "state": CAT.get_dict_state()})

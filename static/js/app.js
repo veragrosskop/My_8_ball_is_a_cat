@@ -79,9 +79,9 @@ document.querySelectorAll("form").forEach(form => {
             // re-enable button
             if (button) {
                 button.disabled = false;
-                // restore label
-                isLoading = false;
+
             }
+            isLoading = false;
         });
     });
 });
